@@ -292,6 +292,8 @@ PMESH_L2_ILA::PMESH_L2_ILA()
     auto instr = model.NewInstr("LOAD_FWDACK");
 
     instr.SetDecode( ( msg3_type == MSG_TYPE_LOAD_FWDACK)  );
+
+    instr.SetUpdate(cur_msg_state, STATE_PENDING);
     
     // E downgrades to S, since there are two private caches own the data
     instr.SetUpdate(cache_state, Ite(cache_state == L2_MESI_E, L2_MESI_S, cache_state));
@@ -299,6 +301,8 @@ PMESH_L2_ILA::PMESH_L2_ILA()
     instr.SetUpdate(cache_data, Ite(cache_state == L2_MESI_E, msg3_data, cache_data));
     // and then the data is dirty
     instr.SetUpdate(cache_vd, Ite(cache_state == L2_MESI_E, L2_DIRTY, cache_vd));
+
+    
   }
 
   // STORE_FWDACK
@@ -337,7 +341,7 @@ PMESH_L2_ILA::PMESH_L2_ILA()
     instr.SetUpdate(cache_data, msg3_data);
     instr.SetUpdate(cache_vd, L2_DIRTY);
   }
-  
+
   // *************** //
   // pipe2 for msg3  //
   // MEM to L2       //

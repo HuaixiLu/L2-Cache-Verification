@@ -11,7 +11,7 @@ void verifyPMeshL2(
    ) {
   VerilogGeneratorBase::VlgGenConfig vlg_cfg;
   vlg_cfg.pass_node_name = true;
-  vtg_cfg.ForceInstCheckReset = true;
+  //vtg_cfg.ForceInstCheckReset = true;
 
   std::string RootPath    = "..";
   std::string VerilogPath = RootPath    + "/verilog/";
