@@ -199,8 +199,8 @@
     ],
 
   "functions": {
-    "__unknown__0" :[["__IEND__", "m1.state_wrap.l2_state.l2_state_array.cache[0][5:0]" ]]
+    "__unknown__0" :[["__IEND__", "m1.state_wrap.l2_state.l2_state_array.cache[0][5:0]" ]],
+    "__unknown__1" :[["__IEND__", "m1.state_wrap.l2_state.l2_state_array.cache[0][5:0]" ]]
   }
-
 
 }
