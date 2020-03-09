@@ -326,6 +326,18 @@ PMESH_L2_ILA::PMESH_L2_ILA()
     instr.SetUpdate(cache_state, L2_MESI_I);
   }
 
+  // WB_REQ
+  {
+    auto instr = model.NewInstr("WB_REQ");
+
+    instr.SetDecode( ( msg3_type == MSG_TYPE_WB_REQ)  );
+
+    // in this case, since L2 is inclusive of L1.5, there must be a hit
+    instr.SetUpdate(cache_state, L2_MESI_I);
+    instr.SetUpdate(cache_data, msg3_data);
+    instr.SetUpdate(cache_vd, L2_DIRTY);
+  }
+  
   // *************** //
   // pipe2 for msg3  //
   // MEM to L2       //
@@ -351,16 +363,6 @@ PMESH_L2_ILA::PMESH_L2_ILA()
     // coherence does nothing?
   }
 
-  // WB_REQ
-  {
-    auto instr = model.NewInstr("WB_REQ");
 
-    instr.SetDecode( ( msg3_type == MSG_TYPE_WB_REQ)  );
-
-    // in this case, since L2 is inclusive of L1.5, there must be a hit
-    instr.SetUpdate(cache_state, L2_MESI_I);
-    instr.SetUpdate(cache_data, msg3_data);
-    instr.SetUpdate(cache_vd, L2_DIRTY);
-  }
 
 }
