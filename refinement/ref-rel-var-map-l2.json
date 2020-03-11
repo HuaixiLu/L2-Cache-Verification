@@ -38,7 +38,7 @@
   "verilog-inline-monitors":{
     "stage_tracker" : {
       "verilog" : [
-        "always @(*) begin monitor_S1 = __START__ ; end",
+        "always @(*) begin monitor_S1 = __START__ && (m1.pipe1.ctrl.valid_S1 && !m1.pipe1.ctrl.stall_S1) ; end",
 
         "always @(posedge clk) begin",
         "    if(rst)",
@@ -108,7 +108,7 @@
 
     "stage_tracker_pipe2" : {
       "verilog" : [
-        "always @(*) begin pipe2_monitor_S1 = __START__ ; end",
+        "always @(*) begin pipe2_monitor_S1 = __START__ && (m1.pipe2.ctrl.valid_S1 && !m1.pipe2.ctrl.stall_S1) ; end",
 
         "always @(posedge clk) begin",
         "    if(rst)",
