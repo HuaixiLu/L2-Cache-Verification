@@ -1126,6 +1126,24 @@ end
 
 assign stall_S3 = 1'b0;
 
+reg first_valid_S2;
+reg first_valid_S3;
+reg msg_start;
+always @ *
+begin
+    msg_start = valid_S1 && !stall_S1;
+end
+
+always @(posedge clk) begin
+    if (!rst_n) first_valid_S2 <= 0;
+    else if(!stall_real_S2) first_valid_S2 <= msg_start;
+end
+
+always @(posedge clk) begin
+    if (!rst_n) first_valid_S3 <= 0;
+    else if(!stall_S3) first_valid_S3 <= first_valid_S2;
+end
+
 /*
 //============================
 // Debug
