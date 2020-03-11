@@ -356,6 +356,8 @@ PMESH_L2_ILA::PMESH_L2_ILA()
 
     instr.SetDecode( ( msg3_type == MSG_TYPE_LOAD_MEM_ACK)  );
     
+    instr.SetUpdate(cur_msg_state, STATE_PENDING);
+    
     instr.SetUpdate(cache_data, msg3_data);
     instr.SetUpdate(cache_tag, msg3_tag);
     instr.SetUpdate(cache_vd, L2_CLEAN);
