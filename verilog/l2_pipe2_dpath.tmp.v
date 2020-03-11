@@ -240,8 +240,8 @@ end
 
 always @ *
 begin
-    tag_data_mask_in_S1 = {{(`L2_WAYS-1)*`L2_TAG_WAY_WIDTH{1'b0}},{`L2_TAG_WAY_WIDTH{1'b1}}} 
-                       << (mshr_way_S1 * `L2_TAG_WAY_WIDTH);
+    tag_data_mask_in_S1 = {{(`L2_WAYS-1)*`L2_TAG_WAY_WIDTH{1'b0}},{`L2_TAG_WAY_WIDTH{1'b1}}};
+                       //<< (mshr_way_S1 * `L2_TAG_WAY_WIDTH);
 end
 
 
