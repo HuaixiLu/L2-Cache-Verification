@@ -229,7 +229,7 @@
     // Only check last response
     "~#pipe2_monitor_S2# || (m1.pipe2.ctrl.is_last_subline_S2 && m1.pipe2.ctrl.subline_valid_S2 && m1.pipe2.ctrl.msg_length_S2_f !=0)",
     "~#pipe2_monitor_S2# || ~(m1.pipe1.ctrl.state_wr_en_S4)",
-    "~#pipe2_monitor_S2# || m1.pipe2.ctrl.l2_way_state_owner_S2 == 1"
+    "~#pipe2_monitor_S2# || (m1.pipe2.ctrl.l2_way_state_owner_S2 == 1 && m1.pipe2.ctrl.inv_fwd_pending_S2_f == 0)"
   
   ],
 
