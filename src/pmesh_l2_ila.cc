@@ -311,6 +311,8 @@ PMESH_L2_ILA::PMESH_L2_ILA()
 
     instr.SetDecode( ( msg3_type == MSG_TYPE_STORE_FWDACK)  );
 
+    instr.SetUpdate(cur_msg_state, STATE_PENDING);
+
     // previous data will be cleared, E downgrades to I, 
     // so that current cache line can do other things(e.g LOAD_MEM for current addr)
     instr.SetUpdate(cache_state, Ite(cache_state == L2_MESI_E, L2_MESI_I, cache_state));
