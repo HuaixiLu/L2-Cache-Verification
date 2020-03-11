@@ -328,6 +328,7 @@ PMESH_L2_ILA::PMESH_L2_ILA()
 
     instr.SetDecode( ( msg3_type == MSG_TYPE_INV_FWDACK)  );
     
+    instr.SetUpdate(cur_msg_state, STATE_PENDING);
     // current L2 will be I
     instr.SetUpdate(cache_state, L2_MESI_I);
   }
