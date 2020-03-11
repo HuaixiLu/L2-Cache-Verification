@@ -242,6 +242,7 @@
     // address assumption: we only care about the coherence among one address & one subline
     "m1.pipe1.ctrl.special_addr_type_S1 == 0",
     "m1.pipe1.msg_addr[13:4] == 0 && m1.pipe2.msg_addr[13:4] == 0",
+    "~(m1.state_wrap.l2_state.l2_state_array.cache[0][14:13] == `L2_MESI_E) || (m1.state_wrap.l2_state.l2_state_array.cache[0][9:6] == 1)",
 
     // Assumptions on Write Back Request
     "~(m1.pipe2.ctrl.msg_type_S1 == `MSG_TYPE_WB_REQ && m1.pipe2.ctrl.valid_S1) || m1.state_wrap.l2_state.l2_state_array.cache[0][14:13] == `L2_MESI_E",
