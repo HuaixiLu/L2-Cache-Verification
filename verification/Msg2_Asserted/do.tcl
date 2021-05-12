@@ -66,35 +66,38 @@ assume -name invariant_assume22 {~m1.pipe2.ctrl.first_valid_S2 || m1.pipe2.ctrl.
 assume -name invariant_assume23 {~m1.pipe1.ctrl.first_valid_S4 || m1.pipe1.ctrl.dir_sharer_counter_S4 == 1}
 assume -name invariant_assume24 {m1.state_wrap.l2_state.l2_state_array.cache[0][10] == 0}
 assume -name invariant_assume25 {~(m1.pipe2.valid_S1 || m1.pipe2.valid_S3) || (~m1.pipe1.ctrl.data_clk_en_S2 || m1.pipe1.ctrl.data_rdw_en_S2)}
-assume -name additional_mapping_control_assume26 {__ILA_I_msg1_type  == m1.pipe1.msg_type}
-assume -name additional_mapping_control_assume27 {__ILA_I_msg1_tag    == m1.pipe1.msg_addr[39:14]}
-assume -name additional_mapping_control_assume28 {__ILA_I_msg1_source == {m1.pipe1.msg_src_y[2:0], m1.pipe1.msg_src_x[2:0]}}
-assume -name additional_mapping_control_assume29 {__ILA_I_msg3_type  == m1.pipe2.msg_type}
-assume -name additional_mapping_control_assume30 {__ILA_I_msg3_data == msg_data}
-assume -name additional_mapping_control_assume31 {__ILA_I_msg3_tag  == m1.pipe1.msg_addr[39:14]}
-assume -name additional_mapping_control_assume32 {~monitor_S1 || ~(m1.pipe2.ctrl.state_wr_en_S3 || m1.pipe2.ctrl.mshr_wr_state_en_S3 || m1.pipe2.ctrl.tag_clk_en_S1)}
-assume -name additional_mapping_control_assume33 {~monitor_S2 || ~(m1.pipe2.ctrl.state_wr_en_S3 || m1.pipe2.ctrl.mshr_wr_state_en_S3 || m1.pipe2.ctrl.tag_clk_en_S1)}
-assume -name additional_mapping_control_assume34 {~monitor_S3 || ~(m1.pipe2.ctrl.state_wr_en_S3 || m1.pipe2.ctrl.mshr_wr_state_en_S3 || m1.pipe2.ctrl.tag_clk_en_S1)}
-assume -name additional_mapping_control_assume35 {~monitor_S4 || ~(m1.pipe2.ctrl.state_wr_en_S3 || m1.pipe2.ctrl.mshr_wr_state_en_S3 || m1.pipe2.ctrl.tag_clk_en_S1)}
-assume -name additional_mapping_control_assume36 {(~monitor_S2 || ~m1.pipe1.ctrl.req_recycle_S2) && (~monitor_S3 || ~m1.pipe1.ctrl.req_recycle_S3) && (~monitor_S4 || ~m1.pipe1.ctrl.req_recycle_S4)}
-assume -name additional_mapping_control_assume37 {~pipe2_monitor_S2 || (m1.pipe2.ctrl.is_last_subline_S2 && m1.pipe2.ctrl.subline_valid_S2 && m1.pipe2.ctrl.msg_length_S2_f !=0)}
-assume -name additional_mapping_control_assume38 {~pipe2_monitor_S2 || ~(m1.pipe1.ctrl.state_wr_en_S4)}
-assume -name additional_mapping_control_assume39 {~(pipe2_monitor_S2 && m1.pipe2.msg_type_S2 == 23) || (m1.pipe2.ctrl.l2_way_state_owner_S2 == 1 && m1.pipe2.ctrl.inv_fwd_pending_S2_f == 0)}
-assume -name rfassumptions40 { ~m1.pipe1.msg_header_valid || (m1.pipe1.msg_type == 2 || m1.pipe1.msg_type == 31 || m1.pipe1.msg_type == 13)}
-assume -name rfassumptions41 { ~m1.pipe2.msg_header_valid || ( ( m1.pipe2.msg_type >= 21 && m1.pipe2.msg_type <= 25) || m1.pipe2.msg_type == 12)}
-assume -name rfassumptions42 {m1.pipe1.ctrl.special_addr_type_S1 == 0}
-assume -name rfassumptions43 {m1.pipe1.msg_addr[13:4] == 0 && m1.pipe2.msg_addr[13:4] == 0}
-assume -name rfassumptions44 {~(m1.state_wrap.l2_state.l2_state_array.cache[0][14:13] == `L2_MESI_E) || (m1.state_wrap.l2_state.l2_state_array.cache[0][9:6] == 1)}
-assume -name rfassumptions45 {~(m1.pipe2.ctrl.msg_type_S1 == `MSG_TYPE_WB_REQ && m1.pipe2.ctrl.valid_S1) || m1.state_wrap.l2_state.l2_state_array.cache[0][14:13] == `L2_MESI_E}
-assume -name rfassumptions46 {(~m1.pipe1.ctrl.msg_state_S4_f || ~m1.pipe1.ctrl.req_recycle_S4)}
-assume -name rfassumptions47 {~m1.pipe1.ctrl.state_wr_en_real_S4 || (m1.pipe1.dpath.dir_sharer_counter_S4 > m1.pipe1.dpath.mshr_inv_counter_out_S4)}
-assume -name rfassumptions48 {~(m1.pipe2.ctrl.mshr_wr_state_en_S3 || m1.pipe2.ctrl.state_wr_en_S3 || m1.pipe2.ctrl.dir_clk_en_S2) || (m1.mshr_wrap.state_mem_f[0] == 2'b01 || m1.pipe2.ctrl.msg_type_S3 == `MSG_TYPE_WB_REQ)}
-assume -name rfassumptions49 {~(m1.pipe2.ctrl.valid_S1 && 21 <= m1.pipe2.ctrl.msg_type_S1 <= 24) || m1.mshr_wrap.state_mem_f[0] == 2'b01}
-assume -name rfassumptions50 {m1.pipe2.msg_mshrid == 0}
-assume -name rfassumptions51 {m1.pipe2.msg_subline_id == 0}
-assume -name rfassumptions52 {m1.pipe1.ctrl.cache_type_S1 == 0}
-assume -name issue_decode53 {(~ __START__) || (__ILA_PMESH_L2_ILA_decode_of_Msg2_Asserted__)}
-assume -name issue_valid54 {(~ __START__) || (__ILA_PMESH_L2_ILA_valid__)}
-assume -name post_value_holder55 {(~(pipe2_monitor_S2) || ((msg_data) == (m1.pipe2.dpath.msg_data_S2[63:0])))}
-assume -name post_value_holder56 {(~(monitor_S4) || ((msg_send) == (m1.pipe1.ctrl.msg_send_type_S4)))}
+assume -name additional_mapping_control_assume26 {__ILA_I_msg1_valid == m1.pipe1.valid_S1}
+assume -name additional_mapping_control_assume27 {__ILA_SO_msg1_ready == ~m1.pipe1.stall_S1}
+assume -name additional_mapping_control_assume28 {__ILA_I_msg1_type  == m1.pipe1.msg_type}
+assume -name additional_mapping_control_assume29 {__ILA_I_msg1_tag    == m1.pipe1.msg_addr[39:14]}
+assume -name additional_mapping_control_assume30 {__ILA_I_msg1_source == {m1.pipe1.msg_src_y[2:0], m1.pipe1.msg_src_x[2:0]}}
+assume -name additional_mapping_control_assume31 {__ILA_I_msg3_type  == m1.pipe2.msg_type}
+assume -name additional_mapping_control_assume32 {__ILA_I_msg3_data == msg_data}
+assume -name additional_mapping_control_assume33 {__ILA_I_msg3_tag  == m1.pipe1.msg_addr[39:14]}
+assume -name additional_mapping_control_assume34 {~monitor_S1 || ~(m1.pipe2.ctrl.state_wr_en_S3 || m1.pipe2.ctrl.mshr_wr_state_en_S3 || m1.pipe2.ctrl.tag_clk_en_S1)}
+assume -name additional_mapping_control_assume35 {~monitor_S2 || ~(m1.pipe2.ctrl.state_wr_en_S3 || m1.pipe2.ctrl.mshr_wr_state_en_S3 || m1.pipe2.ctrl.tag_clk_en_S1)}
+assume -name additional_mapping_control_assume36 {~monitor_S3 || ~(m1.pipe2.ctrl.state_wr_en_S3 || m1.pipe2.ctrl.mshr_wr_state_en_S3 || m1.pipe2.ctrl.tag_clk_en_S1)}
+assume -name additional_mapping_control_assume37 {~monitor_S4 || ~(m1.pipe2.ctrl.state_wr_en_S3 || m1.pipe2.ctrl.mshr_wr_state_en_S3 || m1.pipe2.ctrl.tag_clk_en_S1)}
+assume -name additional_mapping_control_assume38 {(~monitor_S2 || ~m1.pipe1.ctrl.req_recycle_S2) && (~monitor_S3 || ~m1.pipe1.ctrl.req_recycle_S3) && (~monitor_S4 || ~m1.pipe1.ctrl.req_recycle_S4)}
+assume -name additional_mapping_control_assume39 {~pipe2_monitor_S2 || (m1.pipe2.ctrl.is_last_subline_S2 && m1.pipe2.ctrl.subline_valid_S2 && m1.pipe2.ctrl.msg_length_S2_f !=0)}
+assume -name additional_mapping_control_assume40 {~pipe2_monitor_S2 || ~(m1.pipe1.ctrl.state_wr_en_S4)}
+assume -name additional_mapping_control_assume41 {~(pipe2_monitor_S2 && m1.pipe2.msg_type_S2 == 23) || (m1.pipe2.ctrl.l2_way_state_owner_S2 == 1 && m1.pipe2.ctrl.inv_fwd_pending_S2_f == 0)}
+assume -name rfassumptions42 { ~m1.pipe1.msg_header_valid || (m1.pipe1.msg_type == 2 || m1.pipe1.msg_type == 31 || m1.pipe1.msg_type == 13)}
+assume -name rfassumptions43 { ~m1.pipe2.msg_header_valid || ( ( m1.pipe2.msg_type >= 21 && m1.pipe2.msg_type <= 25) || m1.pipe2.msg_type == 12)}
+assume -name rfassumptions44 {m1.pipe1.ctrl.special_addr_type_S1 == 0}
+assume -name rfassumptions45 {m1.pipe1.msg_addr[13:4] == 0 && m1.pipe2.msg_addr[13:4] == 0}
+assume -name rfassumptions46 {~(m1.state_wrap.l2_state.l2_state_array.cache[0][14:13] == `L2_MESI_E) || (m1.state_wrap.l2_state.l2_state_array.cache[0][9:6] == 1)}
+assume -name rfassumptions47 {~(m1.pipe2.ctrl.msg_type_S1 == `MSG_TYPE_WB_REQ && m1.pipe2.ctrl.valid_S1) || m1.state_wrap.l2_state.l2_state_array.cache[0][14:13] == `L2_MESI_E}
+assume -name rfassumptions48 {(~m1.pipe1.ctrl.msg_state_S4_f || ~m1.pipe1.ctrl.req_recycle_S4)}
+assume -name rfassumptions49 {~m1.pipe1.ctrl.state_wr_en_real_S4 || (m1.pipe1.dpath.dir_sharer_counter_S4 > m1.pipe1.dpath.mshr_inv_counter_out_S4)}
+assume -name rfassumptions50 {~(m1.pipe2.ctrl.mshr_wr_state_en_S3 || m1.pipe2.ctrl.state_wr_en_S3 || m1.pipe2.ctrl.dir_clk_en_S2) || (m1.mshr_wrap.state_mem_f[0] == 2'b01 || m1.pipe2.ctrl.msg_type_S3 == `MSG_TYPE_WB_REQ)}
+assume -name rfassumptions51 {~(m1.pipe2.ctrl.valid_S1 && 21 <= m1.pipe2.ctrl.msg_type_S1 <= 24) || m1.mshr_wrap.state_mem_f[0] == 2'b01}
+assume -name rfassumptions52 {m1.pipe2.msg_mshrid == 0}
+assume -name rfassumptions53 {m1.pipe2.msg_subline_id == 0}
+assume -name rfassumptions54 {m1.pipe1.ctrl.cache_type_S1 == 0}
+assume -name issue_decode55 {(~ __START__) || (__ILA_PMESH_L2_ILA_decode_of_Msg2_Asserted__)}
+assume -name issue_valid56 {(~ __START__) || (__ILA_PMESH_L2_ILA_valid__)}
+assume -name post_value_holder57 {(~(pipe2_monitor_S2) || ((msg_data) == (m1.pipe2.dpath.msg_data_S2[63:0])))}
+assume -name post_value_holder58 {(~(monitor_S4) || ((msg_send) == (m1.pipe1.ctrl.msg_send_type_S4)))}
+assume -name post_value_holder59 {(~(monitor_S4) || ((msg_valid) == (m1.pipe1.ctrl.valid_S4)))}
 assert -name variable_map_assert0 {(~ __IEND__) || ((~ ((__START__) ) || (`true) )&&( ~ (~(__START__)&&(__IEND__) ) || (__m2__)))}

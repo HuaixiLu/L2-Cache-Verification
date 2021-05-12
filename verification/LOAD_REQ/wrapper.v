@@ -32,6 +32,7 @@ __VLG_I_rtap_srams_bist_data,
 ____unknown__0_0_result_reg_init__,
 __msg_data_init__,
 __msg_send_init__,
+__msg_valid_init__,
 __unknown__0_0_result_wire,
 clk,
 dummy_reset,
@@ -67,6 +68,7 @@ __2ndENDED__,
 __RESETED__,
 msg_data,
 msg_send,
+msg_valid,
 data_in_bp,
 data_mask_in_bp,
 cache_0,
@@ -115,6 +117,7 @@ input      [3:0] __VLG_I_rtap_srams_bist_data;
 input      [5:0] ____unknown__0_0_result_reg_init__;
 input    [127:0] __msg_data_init__;
 input      [7:0] __msg_send_init__;
+input            __msg_valid_init__;
 input      [5:0] __unknown__0_0_result_wire;
 input            clk;
 input            dummy_reset;
@@ -150,6 +153,7 @@ output reg            __2ndENDED__;
 output reg            __RESETED__;
 output reg    [127:0] msg_data;
 output reg      [7:0] msg_send;
+output reg            msg_valid;
 output reg     [65:0] data_in_bp;
 output reg     [65:0] data_mask_in_bp;
 output reg     [65:0] cache_0;
@@ -226,6 +230,7 @@ wire      [5:0] ____unknown__0_0_result_reg_init__;
 (* keep *) wire            __m3__;
 wire    [127:0] __msg_data_init__;
 wire      [7:0] __msg_send_init__;
+wire            __msg_valid_init__;
 (* keep *) wire      [5:0] __unknown__0_0_result_wire;
 wire            clk;
 (* keep *) wire            dummy_reset;
@@ -255,9 +260,9 @@ always @(posedge clk) begin
 if (rst) __RESETED__ <= 1;
 end
 assign __m0__ = msg_send == __ILA_SO_msg2_type ;
-assign __m1__ = m1.pipe1.ctrl.valid_S4 == __ILA_SO_msg2_valid ;
+assign __m1__ = msg_valid == __ILA_SO_msg2_valid ;
 assign __m2__ = msg_send == __ILA_SO_msg2_type ;
-assign __m3__ = m1.pipe1.ctrl.valid_S4 == __ILA_SO_msg2_valid ;
+assign __m3__ = msg_valid == __ILA_SO_msg2_valid ;
 assign __EDCOND__ = (`false|| (pipe1_commit)) && __STARTED__  ;
 assign __IEND__ = (`false|| (pipe1_commit)) && __STARTED__ && __RESETED__ && (~ __ENDED__)&& ( __CYCLE_CNT__ <= 50) ;
 assign __ISSUE__ = 1 ;
@@ -399,11 +404,13 @@ always @(posedge clk) begin
    if(rst) begin
        msg_data <= __msg_data_init__;
        msg_send <= __msg_send_init__;
+       msg_valid <= __msg_valid_init__;
        __unknown__0_0_result_reg <= ____unknown__0_0_result_reg_init__;
    end
    else if(1) begin
        msg_data <= msg_data;
        msg_send <= msg_send;
+       msg_valid <= msg_valid;
        __unknown__0_0_result_reg <= __unknown__0_0_result_reg;
    end
 end

@@ -31,6 +31,7 @@ __VLG_I_rtap_srams_bist_command,
 __VLG_I_rtap_srams_bist_data,
 __msg_data_init__,
 __msg_send_init__,
+__msg_valid_init__,
 clk,
 dummy_reset,
 rst,
@@ -64,6 +65,7 @@ __2ndENDED__,
 __RESETED__,
 msg_data,
 msg_send,
+msg_valid,
 data_in_bp,
 data_mask_in_bp,
 cache_0,
@@ -110,6 +112,7 @@ input      [3:0] __VLG_I_rtap_srams_bist_command;
 input      [3:0] __VLG_I_rtap_srams_bist_data;
 input    [127:0] __msg_data_init__;
 input      [7:0] __msg_send_init__;
+input            __msg_valid_init__;
 input            clk;
 input            dummy_reset;
 input            rst;
@@ -143,6 +146,7 @@ output reg            __2ndENDED__;
 output reg            __RESETED__;
 output reg    [127:0] msg_data;
 output reg      [7:0] msg_send;
+output reg            msg_valid;
 output reg     [65:0] data_in_bp;
 output reg     [65:0] data_mask_in_bp;
 output reg     [65:0] cache_0;
@@ -216,6 +220,7 @@ wire            __2ndIEND__;
 (* keep *) wire            __m2__;
 wire    [127:0] __msg_data_init__;
 wire      [7:0] __msg_send_init__;
+wire            __msg_valid_init__;
 wire            clk;
 (* keep *) wire            dummy_reset;
 wire            rst;
@@ -244,7 +249,7 @@ always @(posedge clk) begin
 if (rst) __RESETED__ <= 1;
 end
 assign __m0__ = msg_send == __ILA_SO_msg2_type ;
-assign __m1__ = m1.pipe1.ctrl.valid_S4 == __ILA_SO_msg2_valid ;
+assign __m1__ = msg_valid == __ILA_SO_msg2_valid ;
 assign __m2__ = msg_send == __ILA_SO_msg2_type ;
 assign __EDCOND__ = (`false|| ( __CYCLE_CNT__ == 4'd1)) && __STARTED__  ;
 assign __IEND__ = (`false|| ( __CYCLE_CNT__ == 4'd1)) && __STARTED__ && __RESETED__ && (~ __ENDED__) ;
@@ -386,10 +391,12 @@ always @(posedge clk) begin
    if(rst) begin
        msg_data <= __msg_data_init__;
        msg_send <= __msg_send_init__;
+       msg_valid <= __msg_valid_init__;
    end
    else if(1) begin
        msg_data <= msg_data;
        msg_send <= msg_send;
+       msg_valid <= msg_valid;
    end
 end
 endmodule
