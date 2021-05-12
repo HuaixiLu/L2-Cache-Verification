@@ -95,8 +95,8 @@ assume -name rfassumptions51 {~(m1.pipe2.ctrl.valid_S1 && 21 <= m1.pipe2.ctrl.ms
 assume -name rfassumptions52 {m1.pipe2.msg_mshrid == 0}
 assume -name rfassumptions53 {m1.pipe2.msg_subline_id == 0}
 assume -name rfassumptions54 {m1.pipe1.ctrl.cache_type_S1 == 0}
-assume -name issue_decode55 {(~ __START__) || (__ILA_PMESH_L2_ILA_decode_of_Msg2_Asserted__)}
-assume -name issue_valid56 {(~ __START__) || (__ILA_PMESH_L2_ILA_valid__)}
+assume -name start_condition55 {(~ __START__) || __ILA_PMESH_L2_ILA_decode_of_Msg2_Asserted__}
+assume -name start_condition56 {(~ __START__) || monitor_S4}
 assume -name post_value_holder57 {(~(pipe2_monitor_S2) || ((msg_data) == (m1.pipe2.dpath.msg_data_S2[63:0])))}
 assume -name post_value_holder58 {(~(monitor_S4) || ((msg_send) == (m1.pipe1.ctrl.msg_send_type_S4)))}
 assume -name post_value_holder59 {(~(monitor_S4) || ((msg_valid) == (m1.pipe1.ctrl.valid_S4)))}
