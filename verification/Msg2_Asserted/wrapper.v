@@ -260,7 +260,7 @@ always @(*) begin
         cache_in = cache_0;
 end
 
-always @(*) begin monitor_S1 = __START__ && (m1.pipe1.ctrl.valid_S1 && !m1.pipe1.ctrl.stall_S1) ; end
+always @(*) begin monitor_S1 = __START__ ; end
 always @(posedge clk) begin
     if(rst)
         monitor_S2_f <= 0;
