@@ -58,8 +58,6 @@ __VLG_O_noc3_ready_in,
 __VLG_O_srams_rtap_data,
 __m0__,
 __m1__,
-__m2__,
-__m3__,
 __CYCLE_CNT__,
 __START__,
 __STARTED__,
@@ -143,8 +141,6 @@ output            __VLG_O_noc3_ready_in;
 output      [3:0] __VLG_O_srams_rtap_data;
 output            __m0__;
 output            __m1__;
-output            __m2__;
-output            __m3__;
 output reg      [7:0] __CYCLE_CNT__;
 output reg            __START__;
 output reg            __STARTED__;
@@ -226,8 +222,6 @@ wire            __2ndIEND__;
 wire      [5:0] ____unknown__0_0_result_reg_init__;
 (* keep *) wire            __m0__;
 (* keep *) wire            __m1__;
-(* keep *) wire            __m2__;
-(* keep *) wire            __m3__;
 wire    [127:0] __msg_data_init__;
 wire      [7:0] __msg_send_init__;
 wire            __msg_valid_init__;
@@ -260,9 +254,7 @@ always @(posedge clk) begin
 if (rst) __RESETED__ <= 1;
 end
 assign __m0__ = msg_send == __ILA_SO_msg2_type ;
-assign __m1__ = msg_valid == __ILA_SO_msg2_valid ;
-assign __m2__ = msg_send == __ILA_SO_msg2_type ;
-assign __m3__ = msg_valid == __ILA_SO_msg2_valid ;
+assign __m1__ = msg_send == __ILA_SO_msg2_type ;
 assign __EDCOND__ = (`false|| (pipe1_commit)) && __STARTED__  ;
 assign __IEND__ = (`false|| (pipe1_commit)) && __STARTED__ && __RESETED__ && (~ __ENDED__)&& ( __CYCLE_CNT__ <= 50) ;
 assign __ISSUE__ = 1 ;
@@ -277,7 +269,7 @@ always @(*) begin
         cache_in = cache_0;
 end
 
-always @(*) begin monitor_S1 = __START__ ; end
+always @(*) begin monitor_S1 = __START__ && (m1.pipe1.ctrl.valid_S1 && !m1.pipe1.ctrl.stall_S1)  ; end
 always @(posedge clk) begin
     if(rst)
         monitor_S2_f <= 0;
